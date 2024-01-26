@@ -3,6 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Notifications\ResetPasswordNotification;
+use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,7 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Admin extends Authenticatable implements JWTSubject
+class Admin extends Authenticatable implements JWTSubject, CanResetPassword
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
@@ -64,4 +67,15 @@ class Admin extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+     /**
+     * Função para esquecir senha.
+     *
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $client_url = env('APP_FRONTENDURL') . '/reset-password' . '/';
+        $url =  $client_url . $token;
+        $this->notify(new ResetPasswordNotification($url));
+    }
 }

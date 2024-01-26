@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -43,16 +44,16 @@ class AdminController extends Controller
         return response()->json(['message' => 'Administrador atualizado com sucesso', 'admin' => $admin], 200);
     }
 
-    // public function updatePassword(UpdatePasswordRequest $request, $id){
-    //     $admin = Admin::findOrFail($id);
+    public function updatePassword(UpdatePasswordRequest $request, $id){
+        $admin = Admin::findOrFail($id);
 
-    //     if (auth()->user()->id != $id) {
-    //         return response()->json(['message' => 'Acesso não autorizado'], 404);
-    //     }
+        if (auth()->user()->id != $id) {
+            return response()->json(['message' => 'Acesso não autorizado'], 404);
+        }
 
-    //     $admin->password = Hash::make($request->password);
-    //     $admin->save();
+        $admin->password = Hash::make($request->password);
+        $admin->save();
 
-    //     return response()->json(['message' => 'Senha alterada com sucesso.', 'admin' => $admin], 200);
-    // }
+        return response()->json(['message' => 'Senha alterada com sucesso.', 'admin' => $admin], 200);
+    }
 }

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AuthAdminController;
+use App\Http\Controllers\Admin\ForgotPasswordController;
+use App\Http\Controllers\Admin\ResetPasswordController;
 use App\Http\Controllers\User\AuthUserController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Http\Request;
@@ -41,6 +43,10 @@ Route::group(['prefix' => 'user'], function () {
 
 // ROTAS ADMINISTRADOR
 Route::group(['prefix' => 'admin'], function(){
+    Route::group(['prefix' => 'reset'], function() {
+        Route::post('/forgotpassword', [ForgotPasswordController::class, 'forgotPassword']);
+        Route::post('/resetpassword/{token}', [ResetPasswordController::class, 'reset']);
+    });
     // ROTAS DE AUTENTICAÇÃO DO ADMINISTRADOR
     Route::group(['prefix' => 'auth'], function() {
         Route::post('register', [AdminController::class, 'register']);
@@ -53,5 +59,6 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('me', [AuthAdminController::class, 'me']);
 
         Route::post('update', [AdminController::class, 'update']);
+        Route::post('update/password/{id}', [AdminController::class, 'updatePasssword']);
     });
 });
