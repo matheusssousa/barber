@@ -6,18 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Corte extends Model
+class AgendamentoServicos extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = [
-        'nome',
-        'descricao',
-        'foto',
-        'valor',
+        'agendamento_id',
+        'servico_id'
     ];
-
-    public function agendamentos()
-    {
-        $this->hasMany(Agendamento::class);
-    }
 }

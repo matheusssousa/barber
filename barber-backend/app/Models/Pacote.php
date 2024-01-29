@@ -15,4 +15,9 @@ class Pacote extends Model
         'foto',
         'valor',
     ];
+
+    public function agendamentos()
+    {
+        $this->hasMany(Agendamento::class);
+    }
 }

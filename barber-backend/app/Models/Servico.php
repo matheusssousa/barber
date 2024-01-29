@@ -15,4 +15,9 @@ class Servico extends Model
         'foto',
         'valor',
     ];
+
+    public function agendamentos()
+    {
+        $this->belongsToMany(AgendamentoServicos::class, 'agendamento_servicos', 'servico_id', 'agendamento_id')->withPivot('id');
+    }
 }
