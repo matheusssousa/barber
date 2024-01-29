@@ -18,7 +18,7 @@ class AgendamentoController extends Controller
      */
     public function index()
     {
-        $agendamentos = Agendamento::paginate(10)->get();
+        $agendamentos = Agendamento::paginate(10);
 
         return response()->json(['message' => 'Consulta feita com sucesso.', 'agendamentos' => $agendamentos], 200);
     }

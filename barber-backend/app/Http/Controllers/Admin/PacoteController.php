@@ -15,7 +15,7 @@ class PacoteController extends Controller
      */
     public function index()
     {
-        $pacotes = Pacote::paginate(10)->get();
+        $pacotes = Pacote::paginate(10);
 
         return response()->json(['message' => 'Pacotes cadastrados.', 'pacotes' => $pacotes], 200);
     }

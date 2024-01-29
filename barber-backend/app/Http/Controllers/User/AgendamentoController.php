@@ -18,7 +18,7 @@ class AgendamentoController extends Controller
      */
     public function index()
     {
-        $agendamentos = Agendamento::where('user_id', auth()->user()->id)->paginate(10)->get();
+        $agendamentos = Agendamento::where('user_id', auth()->user()->id)->paginate(10);
 
         return response()->json(['message' => 'Consulta feita com sucesso.', 'agendamentos' => $agendamentos], 200);
     }

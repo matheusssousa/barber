@@ -12,7 +12,7 @@ class CorteController extends Controller
      */
     public function index()
     {
-        $cortes = Corte::paginate(10)->get();
+        $cortes = Corte::paginate(10);
 
         return response()->json(['message' => 'Cortes cadastrados.', 'cortes' => $cortes], 200);
     }
