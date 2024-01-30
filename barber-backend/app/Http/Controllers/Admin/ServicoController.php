@@ -17,7 +17,7 @@ class ServicoController extends Controller
     {
         $servicos = Servico::paginate(10);
 
-        return response()->json(['message' => 'Servicos cadastrados.', 'servicos' => $servicos], 200);
+        return response()->json($servicos, 200);
     }
 
     /**
@@ -46,17 +46,17 @@ class ServicoController extends Controller
 
         $servico->save();
 
-        return response()->json(['message' => 'Servico criado com sucesso.', 'servico' => $servico], 200);
+        return response()->json(['message' => 'Servico criado com sucesso.', $servico], 200);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Servico $servico, $id)
+    public function show($id)
     {
         $servico = Servico::findOrFail($id);
 
-        return response()->json(['message' => 'Consulta feita com sucesso.', 'servico' => $servico], 200);
+        return response()->json($servico, 200);
     }
 
     /**
@@ -70,31 +70,31 @@ class ServicoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateServicoRequest $request, Servico $servico, $id)
+    public function update(UpdateServicoRequest $request, $id)
     {
         $servico = Servico::findOrFail($id);
 
         $servico->fill($request->only(['nome', 'descricao', 'valor']));
         // UPDATE DA FOTO
         if ($request->file('foto')) {
-            if (Storage::disk('public')->exists($servico->foto)) {
+            if (!empty($servico->foto) && Storage::disk('public')->exists($servico->foto)) {
                 Storage::disk('public')->delete($servico->foto);
             }
-            $foto_urn = $request->file('foto')->store('fotos','public');
+            $foto_urn = $request->file('foto')->store('fotos', 'public');
             $servico->foto = $foto_urn;
         }
         $servico->update();
 
-        return response()->json(['message' => 'Servico atualizado com sucesso.', 'servico' => $servico], 200);
+        return response()->json(['message' => 'Servico atualizado com sucesso.', $servico], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Servico $servico, $id)
+    public function destroy($id)
     {
         $servico = Servico::findOrFail($id);
-        $servico->softDeletes();
+        $servico->delete();
 
         return response()->json(['message' => 'Servico excluído com sucesso'], 200);
     }
@@ -107,7 +107,7 @@ class ServicoController extends Controller
         $servico = Servico::withTrashed()->findOrFail($id);
         $servico->restore();
 
-        return response()->json(['message' => 'Servico restaurado com sucesso', 'servico' => $servico], 200);
+        return response()->json(['message' => 'Servico restaurado com sucesso', $servico], 200);
     }
 
     /**

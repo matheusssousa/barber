@@ -17,7 +17,7 @@ class CorteController extends Controller
     {
         $cortes = Corte::paginate(10);
 
-        return response()->json(['message' => 'Cortes cadastrados.', 'cortes' => $cortes], 200);
+        return response()->json($cortes, 200);
     }
 
     /**
@@ -46,17 +46,17 @@ class CorteController extends Controller
 
         $corte->save();
 
-        return response()->json(['message' => 'Corte criado com sucesso.', 'corte' => $corte], 200);
+        return response()->json(['message' => 'Corte criado com sucesso.', $corte], 200);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Corte $corte, $id)
+    public function show($id)
     {
         $corte = Corte::findOrFail($id);
 
-        return response()->json(['message' => 'Consulta feita com sucesso.', 'corte' => $corte], 200);
+        return response()->json($corte, 200);
     }
 
     /**
@@ -70,31 +70,31 @@ class CorteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCorteRequest $request, Corte $corte, $id)
+    public function update(UpdateCorteRequest $request, $id)
     {
         $corte = Corte::findOrFail($id);
 
         $corte->fill($request->only(['nome', 'descricao', 'valor']));
         // UPDATE DA FOTO
         if ($request->file('foto')) {
-            if (Storage::disk('public')->exists($corte->foto)) {
+            if (!empty($corte->foto) && Storage::disk('public')->exists($corte->foto)) {
                 Storage::disk('public')->delete($corte->foto);
             }
-            $foto_urn = $request->file('foto')->store('fotos','public');
+            $foto_urn = $request->file('foto')->store('fotos', 'public');
             $corte->foto = $foto_urn;
         }
         $corte->update();
 
-        return response()->json(['message' => 'Corte atualizado com sucesso.', 'corte' => $corte], 200);
+        return response()->json(['message' => 'Corte atualizado com sucesso.', $corte], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Corte $corte, $id)
+    public function destroy($id)
     {
         $corte = Corte::findOrFail($id);
-        $corte->softDeletes();
+        $corte->delete();
 
         return response()->json(['message' => 'Corte excluído com sucesso'], 200);
     }
@@ -107,7 +107,7 @@ class CorteController extends Controller
         $corte = Corte::withTrashed()->findOrFail($id);
         $corte->restore();
 
-        return response()->json(['message' => 'Corte restaurado com sucesso', 'corte' => $corte], 200);
+        return response()->json(['message' => 'Corte restaurado com sucesso', $corte], 200);
     }
 
     /**

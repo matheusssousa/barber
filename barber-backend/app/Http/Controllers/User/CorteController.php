@@ -14,6 +14,6 @@ class CorteController extends Controller
     {
         $cortes = Corte::paginate(10);
 
-        return response()->json(['message' => 'Cortes cadastrados.', 'cortes' => $cortes], 200);
+        return response()->json($cortes, 200);
     }
 }

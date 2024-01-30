@@ -25,7 +25,7 @@ class StoreCorteRequest extends FormRequest
             'nome' => 'required|string|min:5',
             'descricao' => 'string|min:5',
             'foto' => 'image|mimes:jpeg,png,jpg|max:2048',
-            'valor' => 'required|double',
+            'valor' => 'required',
         ];
     }
 }

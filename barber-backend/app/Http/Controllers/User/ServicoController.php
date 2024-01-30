@@ -14,6 +14,6 @@ class ServicoController extends Controller
     {
         $servicos = Servico::paginate(10);
 
-        return response()->json(['message' => 'Servicos cadastrados.', 'servicos' => $servicos], 200);
+        return response()->json($servicos, 200);
     }
 }

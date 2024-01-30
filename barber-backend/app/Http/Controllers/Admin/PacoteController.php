@@ -17,7 +17,7 @@ class PacoteController extends Controller
     {
         $pacotes = Pacote::paginate(10);
 
-        return response()->json(['message' => 'Pacotes cadastrados.', 'pacotes' => $pacotes], 200);
+        return response()->json($pacotes, 200);
     }
 
     /**
@@ -46,17 +46,17 @@ class PacoteController extends Controller
 
         $pacote->save();
 
-        return response()->json(['message' => 'Pacote criado com sucesso.', 'pacote' => $pacote], 200);
+        return response()->json(['message' => 'Pacote criado com sucesso.', $pacote], 200);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Pacote $pacote, $id)
+    public function show($id)
     {
         $pacote = Pacote::findOrFail($id);
 
-        return response()->json(['message' => 'Consulta feita com sucesso.', 'pacote' => $pacote], 200);
+        return response()->json($pacote, 200);
     }
 
     /**
@@ -70,14 +70,14 @@ class PacoteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePacoteRequest $request, Pacote $pacote, $id)
+    public function update(UpdatePacoteRequest $request, $id)
     {
         $pacote = Pacote::findOrFail($id);
-
+        
         $pacote->fill($request->only(['nome', 'descricao', 'valor']));
         // UPDATE DA FOTO
         if ($request->file('foto')) {
-            if (Storage::disk('public')->exists($pacote->foto)) {
+            if (!empty($pacote->foto) && Storage::disk('public')->exists($pacote->foto)) {
                 Storage::disk('public')->delete($pacote->foto);
             }
             $foto_urn = $request->file('foto')->store('fotos','public');
@@ -85,16 +85,16 @@ class PacoteController extends Controller
         }
         $pacote->update();
 
-        return response()->json(['message' => 'Pacote atualizado com sucesso.', 'pacote' => $pacote], 200);
+        return response()->json(['message' => 'Pacote atualizado com sucesso.', $pacote], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pacote $pacote, $id)
+    public function destroy($id)
     {
         $pacote = Pacote::findOrFail($id);
-        $pacote->softDeletes();
+        $pacote->delete();
 
         return response()->json(['message' => 'Pacote excluído com sucesso'], 200);
     }
@@ -107,7 +107,7 @@ class PacoteController extends Controller
         $pacote = Pacote::withTrashed()->findOrFail($id);
         $pacote->restore();
 
-        return response()->json(['message' => 'Pacote restaurado com sucesso', 'pacote' => $pacote], 200);
+        return response()->json(['message' => 'Pacote restaurado com sucesso', $pacote], 200);
     }
 
     /**
