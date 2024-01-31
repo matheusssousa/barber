@@ -18,6 +18,6 @@ class Servico extends Model
 
     public function agendamentos()
     {
-        $this->belongsToMany(AgendamentoServicos::class, 'agendamento_servicos', 'servico_id', 'agendamento_id')->withPivot('id');
+        return $this->belongsToMany(AgendamentoServicos::class, 'agendamento_servicos', 'servico_id', 'agendamento_id')->withPivot('id');
     }
 }

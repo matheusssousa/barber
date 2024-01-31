@@ -18,6 +18,6 @@ class Corte extends Model
 
     public function agendamentos()
     {
-        $this->hasMany(Agendamento::class);
+        return $this->hasMany(Agendamento::class);
     }
 }
