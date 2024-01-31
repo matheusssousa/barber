@@ -20,7 +20,7 @@ class AgendamentoController extends Controller
     {
         $agendamentos = Agendamento::paginate(10);
 
-        return response()->json(['message' => 'Consulta feita com sucesso.', 'agendamentos' => $agendamentos], 200);
+        return response()->json($agendamentos, 200);
     }
 
     /**
@@ -43,11 +43,11 @@ class AgendamentoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Agendamento $agendamento, $id)
+    public function show($id)
     {
         $agendamento = Agendamento::findOrFail($id);
 
-        return response()->json(['message' => 'Consulta feita com sucesso.', 'agendamento' => $agendamento], 200);
+        return response()->json($agendamento, 200);
     }
 
     /**
@@ -61,9 +61,10 @@ class AgendamentoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAgendamentoRequest $request, Agendamento $agendamento, $id)
+    public function update(UpdateAgendamentoRequest $request, $id)
     {
         $agendamento = Agendamento::findOrFail($id);
+        $agendamento->data = $request->data;
         $agendamento->valor_total = 0;
 
         // Se existir um pacote no agendamento, salva o agendamento e encerra a criação
@@ -90,13 +91,13 @@ class AgendamentoController extends Controller
 
         $agendamento->save();
 
-        return response()->json(['message' => 'Agendamento atualizado com sucesso.', 'agendamento' => $agendamento], 200);
+        return response()->json(['message' => 'Agendamento atualizado com sucesso.', $agendamento], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Agendamento $agendamento, $id)
+    public function destroy($id)
     {
         $agendamento = Agendamento::findOrFail($id);
 
@@ -117,6 +118,6 @@ class AgendamentoController extends Controller
         $agendamento->servicos()->restore();
         $agendamento->restore();
 
-        return response()->json(['message' => 'Corte restaurado com sucesso', 'agemd$agendamento' => $agendamento], 200);
+        return response()->json(['message' => 'Agendamento restaurado com sucesso', $agendamento], 200);
     }
 }

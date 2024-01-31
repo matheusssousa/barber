@@ -13,23 +13,33 @@ class Agendamento extends Model
         'user_id',
         'pacote_id',
         'corte_id',
-        'valor_total'
+        'valor_total',
+        'horario_id',
+        'data'
     ];
 
     public function user()
     {
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
+    }
+    public function data()
+    {
+        return $this->hasMany(DataAgendamento::class);
+    }
+    public function horario()
+    {
+        return $this->belongsTo(HorarioAgendamento::class);
     }
     public function pacote()
     {
-        $this->belongsTo(Pacote::class);
+        return $this->belongsTo(Pacote::class);
     }
     public function corte()
     {
-        $this->belongsTo(Corte::class);
+        return $this->belongsTo(Corte::class);
     }
     public function servico()
     {
-        $this->belongsToMany(AgendamentoServicos::class, 'agendamento_servicos', 'agendamento_id', 'servico_id')->withPivot('id');
+        return $this->belongsToMany(AgendamentoServicos::class, 'agendamento_servicos', 'agendamento_id', 'servico_id')->withPivot('id');
     }
 }

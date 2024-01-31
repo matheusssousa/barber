@@ -1,14 +1,18 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AgendamentoController as AdminAgendamentoController;
 use App\Http\Controllers\Admin\AuthAdminController;
 use App\Http\Controllers\Admin\CorteController;
 use App\Http\Controllers\Admin\ForgotPasswordController;
+use App\Http\Controllers\Admin\HorarioAgendamentoController;
 use App\Http\Controllers\Admin\PacoteController;
 use App\Http\Controllers\Admin\ResetPasswordController;
 use App\Http\Controllers\Admin\ServicoController;
+use App\Http\Controllers\User\AgendamentoController;
 use App\Http\Controllers\User\AuthUserController;
 use App\Http\Controllers\User\CorteController as UserCorteController;
+use App\Http\Controllers\User\HorarioAgendamentoController as UserHorarioAgendamentoController;
 use App\Http\Controllers\User\PacoteController as UserPacoteController;
 use App\Http\Controllers\User\ServicoController as UserServicoController;
 use App\Http\Controllers\User\UserController;
@@ -48,6 +52,8 @@ Route::group(['prefix' => 'user'], function () {
         Route::get('corte', [UserCorteController::class, 'index']);
         Route::get('servico', [UserServicoController::class, 'index']);
         Route::get('pacote', [UserPacoteController::class, 'index']);
+        Route::get('horario/{data}', [UserHorarioAgendamentoController::class, 'index']);
+        Route::apiResource('agendamento', AgendamentoController::class);
     });
 });
 
@@ -83,5 +89,12 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('pacote/restore/{id}', [PacoteController::class, 'restore']);
         Route::post('pacote/forcedelete/{id}', [PacoteController::class, 'forceDelete']);
         Route::apiResource('pacote', PacoteController::class);
+
+        Route::post('horario/restore/{id}', [HorarioAgendamentoController::class, 'restore']);
+        Route::post('horario/forcedelete/{id}', [HorarioAgendamentoController::class, 'forceDelete']);
+        Route::apiResource('horario', HorarioAgendamentoController::class);
+
+        Route::post('agendamento/restore/{id}', [AdminAgendamentoController::class, 'restore']);
+        Route::apiResource('agendamento', AdminAgendamentoController::class);
     });
 });

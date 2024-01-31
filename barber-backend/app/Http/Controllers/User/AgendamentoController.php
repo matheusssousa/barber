@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Agendamento;
 use App\Http\Requests\StoreAgendamentoRequest;
 use App\Http\Requests\UpdateAgendamentoRequest;
-use App\Models\AgendamentoServicos;
 use App\Models\Corte;
+use App\Models\DataAgendamento;
 use App\Models\Pacote;
 use App\Models\Servico;
 
@@ -20,7 +20,7 @@ class AgendamentoController extends Controller
     {
         $agendamentos = Agendamento::where('user_id', auth()->user()->id)->paginate(10);
 
-        return response()->json(['message' => 'Consulta feita com sucesso.', 'agendamentos' => $agendamentos], 200);
+        return response()->json($agendamentos, 200);
     }
 
     /**
@@ -36,23 +36,40 @@ class AgendamentoController extends Controller
      */
     public function store(StoreAgendamentoRequest $request)
     {
+        // Verificar se já existe um agendamento para o mesmo dia e horário
+        $existingAgendamento = Agendamento::where('data', $request->data)
+            ->where('horario_id', $request->horario_id)
+            ->first();
+
+        if ($existingAgendamento) {
+            return response()->json(['error' => 'Já existe um agendamento para o mesmo dia e horário.'], 400);
+        }
+
         $agendamento = new Agendamento();
         $agendamento->user_id = auth()->user()->id;
-        // O valor total é declarado antes para ser imcrementado posteriormente no backend, para prevenir que mandem uma requisição com valor adulterado.
+        $agendamento->horario_id = $request->horario_id;
+        // O valor total é declarado antes para ser incrementado posteriormente no backend, para prevenir que mandem uma requisição com valor adulterado.
         $agendamento->valor_total = 0;
 
         // Se existir um pacote no agendamento, salva o agendamento e encerra a criação
         if ($request->pacote_id) {
             $agendamento->pacote_id = $request->pacote_id;
             $agendamento->valor_total = Pacote::where('id', $request->pacote_id)->value('valor');
+            $dataAgendamento = new DataAgendamento(['data' => $request->data]);
+            $agendamento->data()->save($dataAgendamento);
             $agendamento->save();
-            return response()->json(['message' => 'Agendamento feito com sucesso.', 'agendamento' => $agendamento], 200);
+            return response()->json(['message' => 'Agendamento feito com sucesso.', $agendamento], 200);
         }
 
         if ($request->corte_id) {
             $agendamento->corte_id = $request->corte_id;
             $agendamento->valor_total += Corte::where('id', $request->corte_id)->value('valor');
         }
+
+        $agendamento->save();
+
+        $dataAgendamento = new DataAgendamento(['data' => $request->data]);
+        $agendamento->data()->save($dataAgendamento);
 
         if ($request->servicos) {
             foreach ($request->servicos as $key => $servico) {
@@ -61,9 +78,7 @@ class AgendamentoController extends Controller
             }
         }
 
-        $agendamento->save();
-
-        return response()->json(['message' => 'Agendamento salvo com sucesso', 'agendamento' => $agendamento], 200);
+        return response()->json(['message' => 'Agendamento salvo com sucesso', $agendamento], 200);
     }
 
 
@@ -78,7 +93,7 @@ class AgendamentoController extends Controller
             return response()->json(['message' => 'Não pode ser acessado.'], 201);
         }
 
-        return response()->json(['message' => 'Consulta feita com sucesso.', 'agendamento' => $agendamento], 200);
+        return response()->json($agendamento, 200);
     }
 
     /**
@@ -92,7 +107,7 @@ class AgendamentoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAgendamentoRequest $request, Agendamento $agendamento, $id)
+    public function update(UpdateAgendamentoRequest $request, $id)
     {
         $agendamento = Agendamento::findOrFail($id);
 
@@ -100,6 +115,7 @@ class AgendamentoController extends Controller
             return response()->json(['message' => 'Não pode ser acessado.'], 201);
         }
 
+        $agendamento->data = $request->data;
         $agendamento->valor_total = 0;
 
         // Se existir um pacote no agendamento, salva o agendamento e encerra a criação
@@ -107,7 +123,7 @@ class AgendamentoController extends Controller
             $agendamento->pacote_id = $request->pacote_id;
             $agendamento->valor_total = Pacote::where('id', $request->pacote_id)->value('valor');
             $agendamento->save();
-            return response()->json(['message' => 'Agendamento feito com sucesso.', 'agendamento' => $agendamento], 200);
+            return response()->json(['message' => 'Agendamento feito com sucesso.', $agendamento], 200);
         }
 
         if ($request->corte_id) {
@@ -126,13 +142,13 @@ class AgendamentoController extends Controller
 
         $agendamento->save();
 
-        return response()->json(['message' => 'Agendamento atualizado com sucesso.', 'agendamento' => $agendamento], 200);
+        return response()->json(['message' => 'Agendamento atualizado com sucesso.', $agendamento], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Agendamento $agendamento, $id)
+    public function destroy($id)
     {
         $agendamento = Agendamento::findOrFail($id);
 

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('agendamentos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('horario_id');
             $table->unsignedBigInteger('pacote_id')->nullable();
             $table->unsignedBigInteger('corte_id')->nullable();
             $table->double('valor_total');
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('horario_id')->references('id')->on('horario_agendamentos');
             $table->foreign('pacote_id')->references('id')->on('pacotes');
             $table->foreign('corte_id')->references('id')->on('cortes');
         });

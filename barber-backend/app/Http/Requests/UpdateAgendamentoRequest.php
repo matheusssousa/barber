@@ -22,7 +22,8 @@ class UpdateAgendamentoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'data' => 'required|date',
+            'horario_id' => 'required|exists:horario_agendamentos,id'
         ];
     }
 }
