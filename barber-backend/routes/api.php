@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AgendamentoController as AdminAgendamentoController;
 use App\Http\Controllers\Admin\AuthAdminController;
+use App\Http\Controllers\Admin\ContextoController;
 use App\Http\Controllers\Admin\CorteController;
 use App\Http\Controllers\Admin\ForgotPasswordController;
 use App\Http\Controllers\Admin\HorarioAgendamentoController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Admin\ResetPasswordController;
 use App\Http\Controllers\Admin\ServicoController;
 use App\Http\Controllers\User\AgendamentoController;
 use App\Http\Controllers\User\AuthUserController;
+use App\Http\Controllers\User\ContextoController as UserContextoController;
 use App\Http\Controllers\User\CorteController as UserCorteController;
 use App\Http\Controllers\User\HorarioAgendamentoController as UserHorarioAgendamentoController;
 use App\Http\Controllers\User\PacoteController as UserPacoteController;
@@ -39,6 +41,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('corte', [UserCorteController::class, 'index']);
     Route::get('servico', [UserServicoController::class, 'index']);
     Route::get('pacote', [UserPacoteController::class, 'index']);
+    Route::get('contexto', [UserContextoController::class, 'index']);
     // ROTAS DE AUTENTICAÇÃO DO USUÁRIO
     Route::group(['prefix' => 'auth'], function () {
         Route::post('register', [UserController::class, 'register']);
@@ -96,5 +99,7 @@ Route::group(['prefix' => 'admin'], function () {
 
         Route::post('agendamento/restore/{id}', [AdminAgendamentoController::class, 'restore']);
         Route::apiResource('agendamento', AdminAgendamentoController::class);
+
+        Route::apiResource('contexto', ContextoController::class);
     });
 });
