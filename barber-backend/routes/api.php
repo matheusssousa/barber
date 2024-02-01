@@ -70,7 +70,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('login', [AuthAdminController::class, 'login']);
     });
     // ROTAS PROTEGIDAS DO ADMINISTRADOR
-    Route::group(['middleware' => 'jwt.auth'], function() {
+    Route::group(['middleware' => 'jwt.admin'], function() {
         Route::post('logout', [AuthAdminController::class, 'logout']);
         Route::post('refresh', [AuthAdminController::class, 'refresh']);
         Route::post('me', [AuthAdminController::class, 'me']);
