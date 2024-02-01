@@ -36,41 +36,41 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // ROTAS DO USUÁRIO
 Route::group(['prefix' => 'user'], function () {
+    Route::get('corte', [UserCorteController::class, 'index']);
+    Route::get('servico', [UserServicoController::class, 'index']);
+    Route::get('pacote', [UserPacoteController::class, 'index']);
     // ROTAS DE AUTENTICAÇÃO DO USUÁRIO
-    Route::group(['prefix' => 'auth'], function() {
+    Route::group(['prefix' => 'auth'], function () {
         Route::post('register', [UserController::class, 'register']);
         Route::post('login', [AuthUserController::class, 'login']);
     });
     // ROTAS PROTEGIDAS DO USUÁRIO
-    Route::group(['middleware' => 'jwt.auth'], function() {
+    Route::group(['middleware' => 'jwt.auth'], function () {
         Route::post('logout', [AuthUserController::class, 'logout']);
         Route::post('refresh', [AuthUserController::class, 'refresh']);
         Route::post('me', [AuthUserController::class, 'me']);
 
         Route::post('update', [UserController::class, 'update']);
 
-        Route::get('corte', [UserCorteController::class, 'index']);
-        Route::get('servico', [UserServicoController::class, 'index']);
-        Route::get('pacote', [UserPacoteController::class, 'index']);
         Route::get('horario/{data}', [UserHorarioAgendamentoController::class, 'index']);
         Route::apiResource('agendamento', AgendamentoController::class);
     });
 });
 
 // ROTAS ADMINISTRADOR
-Route::group(['prefix' => 'admin'], function(){
+Route::group(['prefix' => 'admin'], function () {
     // ROTAS DE ESQUECEU SENHA DO ADMINISTRADOR
-    Route::group(['prefix' => 'reset'], function() {
+    Route::group(['prefix' => 'reset'], function () {
         Route::post('/forgotpassword', [ForgotPasswordController::class, 'forgotPassword']);
         Route::post('/resetpassword/{token}', [ResetPasswordController::class, 'reset']);
     });
     // ROTAS DE AUTENTICAÇÃO DO ADMINISTRADOR
-    Route::group(['prefix' => 'auth'], function() {
+    Route::group(['prefix' => 'auth'], function () {
         Route::post('register', [AdminController::class, 'register']);
         Route::post('login', [AuthAdminController::class, 'login']);
     });
     // ROTAS PROTEGIDAS DO ADMINISTRADOR
-    Route::group(['middleware' => 'jwt.admin'], function() {
+    Route::group(['middleware' => 'jwt.admin'], function () {
         Route::post('logout', [AuthAdminController::class, 'logout']);
         Route::post('refresh', [AuthAdminController::class, 'refresh']);
         Route::post('me', [AuthAdminController::class, 'me']);
@@ -85,7 +85,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('servico/restore/{id}', [ServicoController::class, 'restore']);
         Route::post('servico/forcedelete/{id}', [ServicoController::class, 'forceDelete']);
         Route::apiResource('servico', ServicoController::class);
-        
+
         Route::post('pacote/restore/{id}', [PacoteController::class, 'restore']);
         Route::post('pacote/forcedelete/{id}', [PacoteController::class, 'forceDelete']);
         Route::apiResource('pacote', PacoteController::class);
