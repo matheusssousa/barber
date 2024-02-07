@@ -1,0 +1,9 @@
+.top-header{
+    @apply w-full h-12 bg-black px-20 font-bold text-sm flex items-center justify-between
+}
+.text-info-horario{
+    @apply text-barber_marrom 
+}
+.group-info-location-horario{
+    @apply flex gap-4
+}
