@@ -5,7 +5,14 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        barber_pretocinza: '#121212',
+        barber_marrom: '#977656',
+        barber_bege: '#F2DAC2',
+        barber_preto: '#050505'
+      },
+    },
   },
   plugins: [],
 }
