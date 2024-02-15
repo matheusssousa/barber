@@ -1,20 +1,19 @@
+import React from "react";
 import { useAuth } from "../providers/AuthProvider";
 
-import PublicRoutes from './PublicRoutes';
-import PrivateRoutesAdmin from "./Admin/PrivateRoutesAdmin";
-import PrivateRoutesUser from "./User/PrivateRoutesUser";
+import StrutureRoute from "./StrutureRoute";
 
 const MyRoute = () => {
     const { authenticate, admin, user } = useAuth();
 
     if (authenticate === true) {
         if (admin) {
-            return <PrivateRoutesAdmin />;
+            return <StrutureRoute route='PrivateAdmin'/>;
         } else if (user) {
-            return <PrivateRoutesUser />;
+            return <StrutureRoute route='PrivateUser' />;
         }
     } else if (authenticate === false) {
-        return <PublicRoutes />;
+        return <StrutureRoute route='Public' />
     }
 }
 

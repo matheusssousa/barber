@@ -28,11 +28,17 @@ export const AuthProvider = ({ children }) => {
     };
 
     async function RefreshTokenUser() {
-        await ApiUser.post('/auth/refresh').then(function (response) {
-            console.log(response);
-        }).catch(function (error) {
-            console.log(error)
-        })
+        if (authenticate) {
+            await ApiUser.post('/auth/refresh').then(function (response) {
+                ApiUser.defaults.headers.Authorization = `Bearer ${response.data.acess_token}`;
+                sessionStorage.setItem('@App:token', response.data.acess_token);
+            }).catch(function (error) {
+                setAuthenticate(false)
+                setUser(null);
+            })
+        } else {
+            return setUser(null);
+        }
     }
 
     // USUÁRIO ADMINISTRADOR
@@ -53,11 +59,17 @@ export const AuthProvider = ({ children }) => {
     };
 
     async function RefreshTokenAdmin() {
-        await ApiAdmin.post('/auth/refresh').then(function (response) {
-            console.log(response);
-        }).catch(function (error) {
-            console.log(error)
-        })
+        if (authenticate) {
+            await ApiAdmin.post('/auth/refresh').then(function (response) {
+                ApiAdmin.defaults.headers.Authorization = `Bearer ${response.data.acess_token}`;
+                sessionStorage.setItem('@App:token', response.data.acess_token);
+            }).catch(function (error) {
+                setAuthenticate(false)
+                setAdmin(null);
+            })
+        } else {
+            return setAdmin(null);
+        }
     }
 
     // RENOVAR TOKEN
@@ -73,7 +85,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ authenticate, admin, user }}>
+        <AuthContext.Provider value={{ authenticate, admin, user, LoginUser, LogoutUser, LoginAdmin, LogoutAdmin }}>
             {children}
         </AuthContext.Provider>
     );
