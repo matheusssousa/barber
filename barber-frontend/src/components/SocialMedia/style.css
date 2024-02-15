@@ -1,0 +1,6 @@
+.content-social-media{
+    @apply flex gap-5 mt-10
+}
+.content-social-media a{
+    @apply w-12 h-12 rounded-full bg-barber_marrom text-barber_bege flex items-center justify-center hover:scale-105 duration-150 ease-in
+}
