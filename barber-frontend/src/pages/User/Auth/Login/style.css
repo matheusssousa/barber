@@ -1,0 +1,15 @@
+.content-login{
+    @apply w-1/4 h-1/2 bg-barber_pretocinza border border-white border-opacity-10 shadow-md rounded-sm flex justify-around items-center flex-col
+}
+
+.form-login{
+    @apply w-1/2 flex flex-col justify-between items-center h-[50%]
+}
+
+.content-login .input-group{
+    @apply flex w-full flex-col  
+}
+
+.form-login button{
+    @apply w-full py-2 bg-barber_marrom text-barber_bege rounded-sm font-medium text-lg hover:drop-shadow uppercase
+}

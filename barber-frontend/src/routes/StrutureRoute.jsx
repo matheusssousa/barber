@@ -1,5 +1,6 @@
 import TopHeader from "../components/TopHeader";
 import MainHeader from "../components/MainHeader";
+import MainHeaderAdmin from "../components/MainHeaderAdmin";
 import Footer from "../components/Footer";
 import PublicRoutes from "./PublicRoutes";
 import PrivateRoutesUser from "./User/PrivateRoutesUser";
@@ -10,8 +11,8 @@ export default function StrutureRoute({ route }) {
         case 'Public':
             return (
                 <>
-                    <TopHeader />
-                    <MainHeader />
+                    {/* <TopHeader /> */}
+                    {/* <MainHeader /> */}
                     <PublicRoutes />
                 </>
             );
@@ -26,7 +27,7 @@ export default function StrutureRoute({ route }) {
         case 'PrivateAdmin':
             return (
                 <>
-                    <MainHeader />
+                    <MainHeaderAdmin />
                     <PrivateRoutesAdmin />
                     <Footer />
                 </>

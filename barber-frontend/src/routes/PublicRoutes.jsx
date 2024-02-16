@@ -14,4 +14,4 @@ export default function PublicRoutes() {
             <Route path="/login" element={<PageLoginUser />} />
         </Routes>
     )
-}
+} 
