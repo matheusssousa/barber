@@ -1,0 +1,14 @@
+@import url('https://fonts.cdnfonts.com/css/montserrat');
+@import url('https://fonts.cdnfonts.com/css/karantina');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.page-body-preto{
+    @apply w-screen h-screen bg-barber_preto
+}
