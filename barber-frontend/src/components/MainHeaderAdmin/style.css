@@ -1,0 +1,16 @@
+.navbar-admin{
+    @apply w-full h-14 bg-barber_pretocinza flex items-center justify-between px-5
+}
+.navbar-admin button{
+    @apply text-barber_bege
+}
+.navbar-admin p{
+    @apply text-barber_bege font-medium text-xl
+}
+.navbar-admin span{
+    @apply w-10 h-10 rounded-full bg-barber_cinzaclaro text-barber_bege cursor-pointer hover:-translate-y-1 duration-200
+}
+
+.sidebar-admin{
+    @apply w-72 h-screen bg-barber_pretocinza border border-barber_cinzaescuro 
+}

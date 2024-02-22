@@ -1,3 +1,20 @@
 footer{
-    @apply w-full h-12 bg-barber_pretocinza
+    @apply w-full h-12 bg-barber_pretocinza flex justify-between text-barber_bege px-20 items-center
+}
+
+p {
+    @apply text-sm
+}
+
+.info-icons{
+    @apply flex items-center justify-around gap-2
+}
+.instagram{
+    @apply hover:text-purple-600 duration-300
+}
+.github{
+    @apply hover:text-sky-600 duration-300
+}
+.linkedin{
+    @apply hover:text-blue-800 duration-300
 }
