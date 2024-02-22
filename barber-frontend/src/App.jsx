@@ -7,11 +7,11 @@ import MyRoute from "./routes/MyRoute";
 function App() {
   return (
     <BrowserRouter>
-      <ConfigsProvider>
+      {/* <ConfigsProvider> */}
         <AuthProvider>
           <MyRoute />
         </AuthProvider>
-      </ConfigsProvider>
+      {/* </ConfigsProvider> */}
     </BrowserRouter>
   )
 }

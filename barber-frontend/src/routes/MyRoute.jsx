@@ -6,13 +6,15 @@ import StrutureRoute from "./StrutureRoute";
 const MyRoute = () => {
     const { authenticate, admin, user } = useAuth();
 
-    if (authenticate === true) {
+    console.log(authenticate);
+    if (authenticate) {
+        console.log('chegou aquyi');
         if (admin) {
             return <StrutureRoute route='PrivateAdmin'/>;
         } else if (user) {
             return <StrutureRoute route='PrivateUser' />;
         }
-    } else if (authenticate === false) {
+    } else if (!authenticate) {
         return <StrutureRoute route='Public' />
     }
 }

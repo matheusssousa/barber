@@ -1,13 +1,19 @@
 .content-login{
-    @apply w-1/4 h-1/2 bg-barber_pretocinza border border-white border-opacity-10 shadow-md rounded-sm flex justify-around items-center flex-col
+    @apply w-full h-full md:w-1/4 md:h-1/2 bg-barber_pretocinza border border-white border-opacity-10 shadow-md rounded-sm flex justify-around items-center flex-col
 }
 
 .form-login{
     @apply w-1/2 flex flex-col justify-between items-center h-[50%]
 }
 
-.content-login .input-group{
+.form-login .input-group{
     @apply flex w-full flex-col  
+}
+.input-group label{
+    @apply text-barber_bege font-medium text-lg
+}
+.input-group input{
+    @apply py-2 px-1 bg-barber_pretocinza border border-white border-opacity-10 text-white outline-none text-opacity-20
 }
 
 .form-login button{

@@ -1,0 +1,23 @@
+.content-login-admin{
+    @apply w-full h-full sm:w-1/3 sm:h-1/2 md:w-1/4 md:h-1/2 bg-barber_pretocinza border 
+    border-barber_cinzaescuro shadow-md rounded-sm flex justify-around 
+    items-center flex-col p-5
+}
+.content-login-admin .title{
+    @apply text-lg font-medium text-barber_marrom uppercase
+}
+.content-login-admin .input-group{
+    @apply flex flex-col w-full md:w-2/3 gap-1
+}
+.content-login-admin .input-group label{
+    @apply text-xs text-barber_bege px-1
+}
+.content-login-admin .input-group input{
+    @apply rounded-md bg-barber_cinzaescuro placeholder:text-barber_cinzaclaro placeholder:text-xs 
+}
+.content-login-admin .esqueceu-a-senha{
+    @apply text-xs font-medium text-barber_bege hover:text-barber_marrom duration-150
+}
+.content-login-admin button{
+    @apply px-6 py-2 bg-barber_marrom rounded-md text-barber_bege hover:drop-shadow-md duration-200 
+}
