@@ -29,8 +29,8 @@ export default function StrutureRoute({ route }) {
             return (
                 <>
                     <MainHeaderAdmin />
-                    <PrivateRoutesAdmin />
-                    <Footer />
+                    {/* <PrivateRoutesAdmin /> */}
+                    {/* <Footer /> */}
                 </>
             );
         default:

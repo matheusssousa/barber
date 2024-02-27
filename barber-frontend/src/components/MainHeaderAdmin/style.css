@@ -1,16 +1,41 @@
 .navbar-admin{
-    @apply w-full h-14 bg-barber_pretocinza flex items-center justify-between px-5
+    @apply w-full h-14 bg-barber_brancoescuro dark:bg-barber_pretocinza flex items-center justify-between px-5
 }
-.navbar-admin button{
-    @apply text-barber_bege
+.navbar-admin img{
+    @apply md:h-11 h-8
+}
+.conjunt-logo-button{
+    @apply flex gap-5
+}
+.btn-menu{
+    @apply text-barber_cinzaescuro dark:text-barber_bege
 }
 .navbar-admin p{
-    @apply text-barber_bege font-medium text-xl
+    @apply text-barber_cinza dark:text-barber_bege font-medium md:text-xl text-lg
 }
-.navbar-admin span{
-    @apply w-10 h-10 rounded-full bg-barber_cinzaclaro text-barber_bege cursor-pointer hover:-translate-y-1 duration-200
+.navbar-admin .user{
+    @apply w-8 h-8 md:w-10 md:h-10 text-xs md:text-base rounded-full bg-barber_brancoclaro dark:bg-barber_cinzaclaro text-barber_cinza dark:text-barber_bege cursor-pointer hover:-translate-y-1 duration-200 flex items-center justify-center hover:drop-shadow-md
+}
+
+.submenu-navbar-admin{
+    @apply bg-barber_brancoescuro dark:bg-barber_cinza w-full md:w-40 h-28 absolute md:right-3 rounded-b-sm p-2 flex flex-col text-sm font-semibold text-barber_cinza dark:text-barber_brancoclaro justify-between
+}
+.button-mode-dark{
+    @apply w-full rounded-full bg-barber_cinzaclaro text-barber_bege p-1 border hover:border-barber_cinzaclaro hover:bg-transparent hover:text-barber_cinzaescuro duration-200 flex gap-1 justify-center
+}
+.button-mode-light{
+    @apply w-full rounded-full bg-barber_cinzaclaro text-barber_bege p-1 border border-barber_cinzaclaro hover:border-barber_bege hover:text-barber_bege hover:bg-transparent duration-200 flex gap-1 justify-center
+}
+.bar-submenu-navbar-admin{
+    @apply my-2 w-full h-px bg-barber_cinzaclaro dark:bg-barber_bege
 }
 
 .sidebar-admin{
-    @apply w-72 h-screen bg-barber_pretocinza border border-barber_cinzaescuro 
+    @apply h-screen bg-barber_pretocinza fixed
+}
+.open{
+    @apply w-48 duration-300 ease-in
+}
+.close{
+    @apply w-0 duration-300 ease-in
 }
