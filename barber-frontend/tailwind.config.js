@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -14,6 +15,9 @@ export default {
         barber_cinzaescuro: '#1E1E1E',
         barber_marrom: '#977656',
         barber_bege: '#F2DAC2',
+        barber_brancoclaro: '#EDEDED',
+        barber_brancoescuro: '#D6D6D6',
+        barber_marromdourado: '#AA6C30',
       },
     },
   },
