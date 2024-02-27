@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }) => {
     
     async function LogoutAdmin() {
         try {
-            await ApiAdmin.post('/auth/logout');
+            await ApiAdmin.post('/logout');
             sessionStorage.removeItem('@App:token');
             sessionStorage.removeItem('@App:admin');
             setAuthenticate(false);
@@ -88,7 +88,7 @@ export const AuthProvider = ({ children }) => {
 
     async function RefreshTokenAdmin() {
         if (authenticate) {
-            await ApiAdmin.post('/auth/refresh').then(function (response) {
+            await ApiAdmin.post('/refresh').then(function (response) {
                 ApiAdmin.defaults.headers.Authorization = `Bearer ${response.data.access_token}`;
                 sessionStorage.setItem('@App:token', response.data.access_token);
             }).catch(function (error) {
