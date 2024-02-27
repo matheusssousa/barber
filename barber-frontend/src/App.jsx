@@ -3,14 +3,17 @@ import { AuthProvider } from "./providers/AuthProvider";
 import { ConfigsProvider } from "./contexts/ConfigsContext";
 
 import MyRoute from "./routes/MyRoute";
+import ThemeProvider from "./contexts/ThemeContext";
 
 function App() {
   return (
     <BrowserRouter>
       {/* <ConfigsProvider> */}
-        <AuthProvider>
+      <AuthProvider>
+        <ThemeProvider>
           <MyRoute />
-        </AuthProvider>
+        </ThemeProvider>
+      </AuthProvider>
       {/* </ConfigsProvider> */}
     </BrowserRouter>
   )
